@@ -94,13 +94,22 @@ from sklearn.linear_model import LogisticRegression
 classifier=LogisticRegression(random_state=0)
 classifier.fit(X,Y)
 
-ax=labelencoder.transform('France')  #hometeam
-bx=labelencoder.transform('Australia')        #awayteam
-ohe=onehotencoder.transform(ax).toarray()
-ohe=pd.DataFrame(ohe)
-ohe=ohe.iloc[:,1:]
-ohee=pd.DataFrame(onehotencoderr.transform(bx).toarray())
-ohee=ohee.iloc[:,1:]
-
-oh=pd.concat([ohe,ohee],axis=1)
-classifier.predict(oh)
+def predictnow(hometeam,awayteam):
+    ax=labelencoder.transform(hometeam)  #hometeam
+    bx=labelencoder.transform(awayteam)   #awayteam
+    ohe=onehotencoder.transform(ax).toarray()
+    ohe=pd.DataFrame(ohe)
+    ohe=ohe.iloc[:,1:]
+    ohee=pd.DataFrame(onehotencoderr.transform(bx).toarray())
+    ohee=ohee.iloc[:,1:]
+    oh=pd.concat([ohe,ohee],axis=1)
+    print(classifier.predict(oh))
+    
+"""examples"""
+predictnow('Russia','Saudi Arabia')
+predictnow('Egypt','Uruguay')
+predictnow('Morocco','Iran')
+predictnow('Portugal','Spain')
+predictnow('France','Australia')
+predictnow('Argentina','Iceland')
+predictnow('Peru','Denmark')
